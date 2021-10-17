@@ -1,0 +1,19 @@
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Check message length
+        run: |
+          for message in $GITHUB_WORKSPACE/*/messages/*
+          do
+            len=$(wc -m < $message)
+            echo -e "$message\t$len"
+            if (( $len < 1 )) || (( $len > 2000 ))
+            then
+              exit 1
+            fi
+          done
+        shell: bash
