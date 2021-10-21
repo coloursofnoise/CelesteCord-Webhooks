@@ -14,3 +14,5 @@ jobs:
       - name: Execute webhooks
         run: ./.github/scripts/webhooks.sh
         shell: bash
+        env:
+          RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
