@@ -16,3 +16,14 @@ jobs:
         shell: bash
         env:
           RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        if: env.ids_updated
+        with:
+          commit-message: "[ci] Update message ids"
+          author: coloursofnoise <coloursofthenoise@gmail.com>
+          branch: webhook-ci
+          delete-branch: true
+          title: "[ci] Update Message IDs"
+          reviewers: coloursofnoise

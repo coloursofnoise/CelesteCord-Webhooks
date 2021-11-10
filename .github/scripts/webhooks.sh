@@ -90,10 +90,5 @@ for HOOK in "${WEBHOOKS[@]}" ; do
 done
 
 if [ "$IDS_UPDATED" == "TRUE" ] ; then
-    echo "Committing new message IDs"
-    git config --global user.name 'coloursofnoise'
-    git config --global user.email 'coloursofthenoise@gmail.com'
-    git add .
-    git commit -m "[ci] Update message ids"
-    git push
+    echo "ids_updated=true" >> $GITHUB_ENV
 fi
