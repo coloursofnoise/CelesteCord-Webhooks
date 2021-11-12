@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  build:
+  update-webhooks:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,7 @@ jobs:
         shell: bash
         env:
           RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
+          BUG_REPORTS_WEBHOOK: ${{ secrets.BUG_REPORTS_WEBHOOK }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
