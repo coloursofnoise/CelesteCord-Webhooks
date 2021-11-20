@@ -17,6 +17,7 @@ jobs:
         env:
           RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
           BUG_REPORTS_WEBHOOK: ${{ secrets.BUG_REPORTS_WEBHOOK }}
+          ASSET_MAKING_WEBHOOK: ${{ secrets.ASSET_MAKING_WEBHOOK }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
