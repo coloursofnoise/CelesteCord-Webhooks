@@ -17,6 +17,7 @@ jobs:
         env:
           RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
           BUG_REPORTS_WEBHOOK: ${{ secrets.BUG_REPORTS_WEBHOOK }}
+          CELESTE_WEBHOOK: ${{ secrets.CELESTE_WEBHOOK }}
           ASSET_MAKING_WEBHOOK: ${{ secrets.ASSET_MAKING_WEBHOOK }}
 
       - name: Create Pull Request
