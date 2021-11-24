@@ -1,3 +1,5 @@
+name: Test
+
 on: pull_request
 
 jobs:
@@ -5,15 +7,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Check message length
+      - name: Run automated tests
         run: |
-          for message in $GITHUB_WORKSPACE/*/messages/*
-          do
+          STATUS=0
+          # check message length
+          for message in $GITHUB_WORKSPACE/*/messages/*; do
             len=$(wc -m < $message)
             echo -e "$message\t$len"
-            if (( $len < 1 )) || (( $len > 2000 ))
-            then
-              exit 1
+            if (( $len < 1 )) || (( $len > 2000 )); then
+              echo "::error file=$message::Length of message ($len) out of allowed bounds."
+              STATUS=1
             fi
           done
+
+          # verify all webhooks have associated secrets
+          for webhook in $GITHUB_WORKSPACE/*/; do
+            webhook=$(basename "$webhook")
+            if ! grep -q "$webhook" $GITHUB_WORKSPACE/.github/workflows/webhooks.yml; then
+              echo "::error ::$webhook missing secret in \`webhooks.yml\`."
+              STATUS=1
+            fi
+          done
+
+          exit $STATUS
         shell: bash
