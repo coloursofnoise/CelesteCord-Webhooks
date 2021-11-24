@@ -1,3 +1,5 @@
+name: Execute Webhooks
+
 on:
   push:
     branches:

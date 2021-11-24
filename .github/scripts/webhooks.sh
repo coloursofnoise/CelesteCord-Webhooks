@@ -24,6 +24,17 @@ webhook_status () {
     return 0
 }
 
+send_message () {
+    curl \
+        -X POST \
+        -H "Content-Type: application/json" \
+        "$1?wait=true" \
+        -d "$(jq -n \
+            --arg content "$(cat $2)" \
+            '{content: $content, allowed_mentions: {parse: []}}' \
+        )"
+}
+
 echo 'Retrieving changed files'
 CHANGED=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)
 
@@ -54,14 +65,7 @@ for HOOK in "${WEBHOOKS[@]}" ; do
                 if [ "$MSG_ID" == "" ]; then
                     IDS_UPDATED="TRUE"
                     echo "Appending message $IDX to $HOOK"
-                    response=$(curl \
-                        -X POST \
-                        -H "Content-Type: application/json" \
-                        "$WEBHOOK_URL?wait=true" \
-                        -d "$(jq -n \
-                            --arg content "$(cat $file)" \
-                            '{content: $content}' \
-                        )")
+                    response=$(send_message $WEBHOOK_URL $file)
                     echo $response | jq -r '.id' >> "./$HOOK/ids"
                 else
                     echo "Updating message $MSG_ID for $HOOK"
@@ -84,14 +88,7 @@ for HOOK in "${WEBHOOKS[@]}" ; do
         for file in ./$HOOK/messages/* ; do
             sleep 0.05
             echo "Sending message "$(basename "$file")" for $HOOK"
-            response=$(curl \
-                -X POST \
-                -H "Content-Type: application/json" \
-                "$WEBHOOK_URL?wait=true" \
-                -d "$(jq -n \
-                    --arg content "$(cat $file)" \
-                    '{content: $content}' \
-                )")
+            response=$(send_message $WEBHOOK_URL $file)
             echo $response | jq -r '.id' >> "./$HOOK/ids"
         done
 
