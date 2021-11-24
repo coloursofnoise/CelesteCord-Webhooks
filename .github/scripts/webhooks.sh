@@ -51,15 +51,28 @@ for HOOK in "${WEBHOOKS[@]}" ; do
                 MSG_ID=${IDS[$IDX]}
 
                 sleep 0.05
-                echo "Updating message $MSG_ID for $HOOK"
-                curl \
-                    -X PATCH \
-                    -H "Content-Type: application/json" \
-                    "$WEBHOOK_URL/messages/$MSG_ID?wait=true" \
-                    -d "$(jq -n \
-                        --arg content "$(cat $file)" \
-                        '{content: $content}' \
-                    )"
+                if [ "$MSG_ID" == "" ]; then
+                    echo "Appending message $IDX to $HOOK"
+                    response=$(curl \
+                        -X POST \
+                        -H "Content-Type: application/json" \
+                        "$WEBHOOK_URL?wait=true" \
+                        -d "$(jq -n \
+                            --arg content "$(cat $file)" \
+                            '{content: $content}' \
+                        )")
+                    echo $response | jq -r '.id' >> "./$HOOK/ids"
+                else
+                    echo "Updating message $MSG_ID for $HOOK"
+                    curl \
+                        -X PATCH \
+                        -H "Content-Type: application/json" \
+                        "$WEBHOOK_URL/messages/$MSG_ID?wait=true" \
+                        -d "$(jq -n \
+                            --arg content "$(cat $file)" \
+                            '{content: $content}' \
+                        )"
+                fi
             fi
         done
     elif [ $STATUS == 2 ] ; then
