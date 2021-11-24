@@ -52,6 +52,7 @@ for HOOK in "${WEBHOOKS[@]}" ; do
 
                 sleep 0.05
                 if [ "$MSG_ID" == "" ]; then
+                    IDS_UPDATED="TRUE"
                     echo "Appending message $IDX to $HOOK"
                     response=$(curl \
                         -X POST \
