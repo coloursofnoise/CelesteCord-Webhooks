@@ -22,6 +22,7 @@ jobs:
           CELESTE_WEBHOOK: ${{ secrets.CELESTE_WEBHOOK }}
           MODDING_GENERAL_WEBHOOK: ${{ secrets.MODDING_GENERAL_WEBHOOK }}
           ASSET_MAKING_WEBHOOK: ${{ secrets.ASSET_MAKING_WEBHOOK }}
+          SPEEDRUN_HELP_WEBHOOK: ${{ secrets.SPEEDRUN_HELP_WEBHOOK }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
