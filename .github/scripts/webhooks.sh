@@ -1,7 +1,13 @@
+# HOOK
+get_webhook() {
+    local varname=$(echo ${1}_WEBHOOK | tr [:lower:] [:upper:])
+    echo ${!varname}
+}
+
+# HOOK
 webhook_status () {
     local HOOK="$1"
-    local varname=$(echo ${HOOK}_WEBHOOK | tr [:lower:] [:upper:])
-    local WEBHOOK_URL=${!varname}
+    local WEBHOOK_URL=$(get_webhook $HOOK)
     if ! curl -o /dev/null -f "$WEBHOOK_URL" ; then
         return 1
     fi
@@ -24,14 +30,19 @@ webhook_status () {
     return 0
 }
 
+# WEBHOOK_URL PROTOCOL HOOK MGS_IDX
 send_message () {
+    embed_query='--argjson embeds []'
+    test -f $3/embeds/$4 && embed_query="--slurpfile embeds $3/embeds/$4"
     curl \
-        -X POST \
+        -X $2 \
         -H "Content-Type: application/json" \
         "$1?wait=true" \
-        -d "$(jq -n \
-            --arg content "$(cat $2)" \
-            '{content: $content, allowed_mentions: {parse: []}}' \
+        -d "$(jq -ncj \
+            --arg content "$(cat $3/messages/$4)" \
+            $embed_query \
+            '{content: $content, embeds: $embeds, allowed_mentions: {parse: []}}' | \
+            perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' \
         )"
 }
 
@@ -41,7 +52,7 @@ CHANGED=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)
 declare -a WEBHOOKS
 for file in $CHANGED
 do
-    if [ "$(basename "$(dirname $file)")" == 'messages' ]
+    if [[ "$(basename "$(dirname $file)")" == 'messages' && -e $file ]]
     then
         WEBHOOKS+=("$(echo $file | cut -d '/' -f1)")
     fi
@@ -53,8 +64,7 @@ for HOOK in "${WEBHOOKS[@]}" ; do
     IDS=($(webhook_status $HOOK))
     STATUS=$?
     if [ $STATUS == 0 ] ; then
-        varname=$(echo ${HOOK}_WEBHOOK | tr [:lower:] [:upper:])
-        WEBHOOK_URL=${!varname}
+        WEBHOOK_URL=$(get_webhook $HOOK)
 
         for file in $CHANGED ; do
             if [[ "$file" == *"$HOOK/messages"* ]] ; then
@@ -65,30 +75,23 @@ for HOOK in "${WEBHOOKS[@]}" ; do
                 if [ "$MSG_ID" == "" ]; then
                     IDS_UPDATED="TRUE"
                     echo "Appending message $IDX to $HOOK"
-                    response=$(send_message $WEBHOOK_URL $file)
+                    response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
                     echo $response | jq -r '.id' >> "./$HOOK/ids"
                 else
                     echo "Updating message $MSG_ID for $HOOK"
-                    curl \
-                        -X PATCH \
-                        -H "Content-Type: application/json" \
-                        "$WEBHOOK_URL/messages/$MSG_ID?wait=true" \
-                        -d "$(jq -n \
-                            --arg content "$(cat $file)" \
-                            '{content: $content}' \
-                        )"
+                    send_message $WEBHOOK_URL/messages/$MSG_ID PATCH $HOOK $IDX
                 fi
             fi
         done
     elif [ $STATUS == 2 ] ; then
         IDS_UPDATED="TRUE"
         echo "No existing messages for $HOOK"
-        varname=$(echo ${HOOK}_WEBHOOK | tr [:lower:] [:upper:])
-        WEBHOOK_URL=${!varname}
+        WEBHOOK_URL=$(get_webhook $HOOK)
         for file in ./$HOOK/messages/* ; do
             sleep 0.05
-            echo "Sending message "$(basename "$file")" for $HOOK"
-            response=$(send_message $WEBHOOK_URL $file)
+            IDX=$(basename "$file")
+            echo "Sending message $IDX for $HOOK"
+            response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
             echo $response | jq -r '.id' >> "./$HOOK/ids"
         done
 

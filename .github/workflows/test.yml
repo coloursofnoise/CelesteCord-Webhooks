@@ -20,6 +20,17 @@ jobs:
             fi
           done
 
+          # verify embed formatting
+          for embed in $GITHUB_WORKSPACE/*/embeds/*; do
+            error=$(jq -ncj --slurpfile embeds $embed '{embeds:$embeds}' | \
+              perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' | \
+                jq 2>&1 > /dev/null)
+            if [[ ! $? ]]; then
+              echo "::error file=$embed::$error"
+              STATUS=1
+            fi
+          done
+
           # verify all webhooks have associated secrets
           for webhook in $GITHUB_WORKSPACE/*/; do
             webhook=$(basename "$webhook")
