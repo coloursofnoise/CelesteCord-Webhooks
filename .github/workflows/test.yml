@@ -11,25 +11,32 @@ jobs:
         run: |
           STATUS=0
           # check message length
+          if compgen -G $GITHUB_WORKSPACE/*/messages >/dev/null; then
           for message in $GITHUB_WORKSPACE/*/messages/*; do
             len=$(wc -m < $message)
             echo -e "$message\t$len"
-            if (( $len < 1 )) || (( $len > 2000 )); then
+            if ((($len < 1)) && [ ! -e ${message/messages/embeds} ] ) || (($len > 2000)); then
               echo "::error file=$message::Length of message ($len) out of allowed bounds."
               STATUS=1
             fi
           done
+          fi
 
           # verify embed formatting
+          if compgen -G $GITHUB_WORKSPACE/*/embeds >/dev/null; then
           for embed in $GITHUB_WORKSPACE/*/embeds/*; do
-            error=$(jq -ncj --slurpfile embeds $embed '{embeds:$embeds}' | \
-              perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' | \
-                jq 2>&1 > /dev/null)
-            if [[ ! $? ]]; then
+            error=$(
+              set -o pipefail
+              { jq -ncj --slurpfile embeds $embed '{embeds:$embeds}' |
+                perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' |
+                jq >/dev/null; } 2>&1
+            )
+            if [[ "$?" != "0" ]]; then
               echo "::error file=$embed::$error"
               STATUS=1
             fi
           done
+          fi
 
           # verify all webhooks have associated secrets
           for webhook in $GITHUB_WORKSPACE/*/; do
