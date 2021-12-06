@@ -42,7 +42,7 @@ send_message () {
             --arg content "$(cat $3/messages/$4)" \
             $embed_query \
             '{content: $content, embeds: $embeds, allowed_mentions: {parse: []}}' | \
-            perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' \
+            perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' \
         )"
 }
 
