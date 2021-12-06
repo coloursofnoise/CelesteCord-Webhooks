@@ -28,8 +28,8 @@ jobs:
             error=$(
               set -o pipefail
               { jq -ncj --slurpfile embeds $embed '{embeds:$embeds}' |
-                perl -e '$sed = q(sed -e '\''s/"/\\\"/g'\''); $json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`$sed $1 | awk '{print}' ORS='\\\\\\\\\\\\\\\\n'`/ge; print $json' |
-                jq >/dev/null; } 2>&1
+                perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' |
+                jq; } 2>&1
             )
             if [[ "$?" != "0" ]]; then
               echo "::error file=$embed::$error"
