@@ -50,41 +50,40 @@ send_message () {
 echo 'Retrieving changed files'
 CHANGED=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)
 
-declare -a WEBHOOKS
+declare -A WEBHOOKS
 for file in $CHANGED; do
-    folder=$(basename "$(dirname $file)")
-    if [[ "$folder" == 'embeds' && -e $file && -e ${file/embeds/messages} ]]; then
+    if [[ "$(basename "$(dirname $file)")" == 'embeds' && -e $file && -e ${file/embeds/messages} ]]; then
         file=${file/embeds/messages}
-        folder=${folder/embeds/messages}
     fi
-    if [[ "$folder" == 'messages' && -e $file ]]; then
-        WEBHOOKS+=("$(echo $file | cut -d '/' -f1)")
+    if [[ "$(basename "$(dirname $file)")" == 'messages' && -e $file ]]; then
+        KEY="$(echo $file | cut -d '/' -f1)"
+        if [[ ! " ${WEBHOOKS[$KEY]}" == *" $file "* ]]; then
+            WEBHOOKS[$KEY]+="$file "
+        fi
     fi
 done
-WEBHOOKS=($(for HOOK in "${WEBHOOKS[@]}"; do echo "$HOOK";done | sort | uniq | xargs))
 
-for HOOK in "${WEBHOOKS[@]}" ; do
+for HOOK in "${!WEBHOOKS[@]}" ; do
     echo "Checking status of $HOOK"
     IDS=($(webhook_status $HOOK))
     STATUS=$?
     if [ $STATUS == 0 ] ; then
         WEBHOOK_URL=$(get_webhook $HOOK)
 
-        for file in $CHANGED ; do
-            if [[ "$file" == *"$HOOK/messages"* ]] ; then
-                IDX=$(basename "$file")
-                MSG_ID=${IDS[$IDX]}
+        declare -a UPDATED_FILES=(${WEBHOOKS[$HOOK]})
+        for file in "${UPDATED_FILES[@]}" ; do
+            IDX=$(basename "$file")
+            MSG_ID=${IDS[$IDX]}
 
-                sleep 0.05
-                if [ "$MSG_ID" == "" ]; then
-                    IDS_UPDATED="TRUE"
-                    echo "Appending message $IDX to $HOOK"
-                    response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
-                    echo $response | jq -r '.id' >> "./$HOOK/ids"
-                else
-                    echo "Updating message $MSG_ID for $HOOK"
-                    send_message $WEBHOOK_URL/messages/$MSG_ID PATCH $HOOK $IDX
-                fi
+            sleep 0.05
+            if [ "$MSG_ID" == "" ]; then
+                IDS_UPDATED="TRUE"
+                echo "Appending message $IDX to $HOOK"
+                response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
+                echo $response | jq -r '.id' >> "./$HOOK/ids"
+            else
+                echo "Updating message $MSG_ID for $HOOK"
+                send_message $WEBHOOK_URL/messages/$MSG_ID PATCH $HOOK $IDX > /dev/null
             fi
         done
     elif [ $STATUS == 2 ] ; then
