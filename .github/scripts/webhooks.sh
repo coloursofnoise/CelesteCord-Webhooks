@@ -19,6 +19,7 @@ webhook_status () {
 
     local IDS=()
     readarray -t IDS < "./$HOOK/ids"
+    CR=$'\r'; IDS=("${IDS[@]%$CR}") # remove pesky carriage returns
     for MSG in ${IDS[@]} ; do
         sleep 0.05
         if ! curl -o /dev/null -f "$WEBHOOK_URL/messages/$MSG" ; then
