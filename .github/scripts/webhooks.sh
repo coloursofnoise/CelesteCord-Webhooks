@@ -50,10 +50,13 @@ echo 'Retrieving changed files'
 CHANGED=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)
 
 declare -a WEBHOOKS
-for file in $CHANGED
-do
-    if [[ "$(basename "$(dirname $file)")" == 'messages' && -e $file ]]
-    then
+for file in $CHANGED; do
+    folder=$(basename "$(dirname $file)")
+    if [[ "$folder" == 'embeds' && -e $file && -e ${file/embeds/messages} ]]; then
+        file=${file/embeds/messages}
+        folder=${folder/embeds/messages}
+    fi
+    if [[ "$folder" == 'messages' && -e $file ]]; then
         WEBHOOKS+=("$(echo $file | cut -d '/' -f1)")
     fi
 done
