@@ -17,6 +17,7 @@ jobs:
         run: ./.github/scripts/webhooks.sh
         shell: bash
         env:
+          BEFORE_SHA: ${{ github.event.before }}
           RULES_WEBHOOK: ${{ secrets.RULES_WEBHOOK }}
           ROLES_WEBHOOK: ${{ secrets.ROLES_WEBHOOK }}
           BUG_REPORTS_WEBHOOK: ${{ secrets.BUG_REPORTS_WEBHOOK }}
