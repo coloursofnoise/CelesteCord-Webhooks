@@ -79,7 +79,7 @@ send_message() {
 
 # --EXECUTION START--
 echo 'Retrieving changed files'
-CHANGED=$(git diff-tree --no-commit-id --name-only -r $GITHUB_SHA)
+CHANGED=$(git diff-tree --no-commit-id --name-only --diff-filter=d -r $BEFORE_SHA..$GITHUB_SHA)
 
 # Get all changed files that belong to a webhook
 declare -A WEBHOOKS
