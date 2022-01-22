@@ -1,10 +1,21 @@
 #!/usr/bin/env bash
+ID_FILE=$ID_FILE || 'ids'
+
+POST_PROCESS='grep .'
+case "$(uname)" in CYGWIN*|MINGW*|MSYS*)
+    curl -V | grep Unicode || POST_PROCESS='iconv -f utf-8 -t ascii//translit'
+    ;;
+esac
 
 # args:
 #   Webhook
 webhook_url() {
-    local varname=$(echo ${1}_WEBHOOK | tr [:lower:] [:upper:])
-    echo ${!varname}
+    if [ -z "$TEST_WEBHOOK_URL" ]; then
+        local varname=$(echo ${1}_WEBHOOK | tr [:lower:] [:upper:])
+        echo ${!varname}
+    else
+        echo $TEST_WEBHOOK_URL
+    fi
 }
 
 # args:
@@ -22,13 +33,15 @@ webhook_status() {
         return 1
     fi
 
-    if ! test -f "./$HOOK/ids" && test -f "./$HOOK/new"; then
+    test $TEST_SEND && return 2
+
+    if ! test -f "./$HOOK/$ID_FILE" && test -f "./$HOOK/new"; then
         rm "./$HOOK/new"
         return 2
     fi
 
     local IDS=()
-    readarray -t IDS < <(cat ./$HOOK/ids | tr -d '\r')
+    readarray -t IDS < <(cat ./$HOOK/$ID_FILE | tr -d '\r')
     for MSG in ${IDS[@]}; do
         sleep 0.05
         if ! curl -o /dev/null -f "$WEBHOOK_URL/messages/$MSG"; then
@@ -56,10 +69,11 @@ send_message() {
         "$1?wait=true" \
         -d "$(
             jq -ncj \
-            --arg content "$(cat $3/messages/$4)" \
+            --rawfile content $3/messages/$4 \
             $embed_query \
             '{content: $content, embeds: $embeds, allowed_mentions: {parse: []}}' | \
-            perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' \
+            perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' | \
+            $POST_PROCESS \
         )"
 }
 
@@ -98,7 +112,7 @@ for HOOK in "${!WEBHOOKS[@]}"; do
                 IDS_UPDATED="TRUE"
                 echo "Appending message $IDX to $HOOK"
                 response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
-                echo $response | jq -r '.id' >>"./$HOOK/ids"
+                echo $response | jq -r '.id' >>"./$HOOK/$ID_FILE"
             else
                 echo "Updating message $MSG_ID for $HOOK"
                 send_message $WEBHOOK_URL/messages/$MSG_ID PATCH $HOOK $IDX >/dev/null
@@ -114,7 +128,7 @@ for HOOK in "${!WEBHOOKS[@]}"; do
             IDX=$(basename "$file")
             echo "Sending message $IDX for $HOOK"
             response=$(send_message $WEBHOOK_URL POST $HOOK $IDX)
-            echo $response | jq -r '.id' >>"./$HOOK/ids"
+            echo $response | jq -r '.id' >>"./$HOOK/$ID_FILE"
         done
 
     else
