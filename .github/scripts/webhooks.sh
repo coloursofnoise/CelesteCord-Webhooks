@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-ID_FILE=$ID_FILE || 'ids'
+
+if [ -z "$ID_FILE"]; then
+    ID_FILE='ids'
+fi
 
 POST_PROCESS='grep .'
 case "$(uname)" in CYGWIN*|MINGW*|MSYS*)
