@@ -26,6 +26,7 @@ jobs:
           MODDING_GENERAL_WEBHOOK: ${{ secrets.MODDING_GENERAL_WEBHOOK }}
           MODDING_WELCOME_WEBHOOK: ${{ secrets.MODDING_WELCOME_WEBHOOK }}
           ASSET_MAKING_WEBHOOK: ${{ secrets.ASSET_MAKING_WEBHOOK }}
+          SPEEDRUN_WELCOME_WEBHOOK: ${{ secrets.SPEEDRUN_WELCOME_WEBHOOK }}
           SPEEDRUN_HELP_WEBHOOK: ${{ secrets.SPEEDRUN_HELP_WEBHOOK }}
 
       - name: Create Pull Request
