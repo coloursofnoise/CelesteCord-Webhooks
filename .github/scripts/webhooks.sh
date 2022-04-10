@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-if [ -z "$ID_FILE"]; then
+if [ -z "$ID_FILE" ]; then
     ID_FILE='ids'
 fi
 
 POST_PROCESS='grep .'
 case "$(uname)" in CYGWIN*|MINGW*|MSYS*)
-    curl -V | grep Unicode || POST_PROCESS='iconv -f utf-8 -t ascii//translit'
+    curl -V | grep Unicode || POST_PROCESS='iconv -c -f UTF-8 -t ASCII//TRANSLIT'
     ;;
 esac
 
@@ -77,7 +77,8 @@ send_message() {
             '{content: $content, embeds: $embeds, allowed_mentions: {parse: []}}' | \
             perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' | \
             $POST_PROCESS \
-        )"
+        )" \
+        -w '%{stderr}Return Code:%{http_code}\n%{stdout}\n'
 }
 
 # --EXECUTION START--
