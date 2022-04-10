@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+STATUS=0
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+set -eo pipefail
+
+echo_err() { echo -e "\e[31m${bold}$@${normal}\e[0m" >&2; }
+
+find .github -name \*.yml -exec yq {} >/dev/null + || (STATUS=1; echo_err "Invalid yml files found!")
+
+# set red background to highlight whitespace
+GREP_COLORS="ms=01;41:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36" \
+find -not -path '*/\.*' -type f -exec sh -c '
+# extra processing to only print filenames once
+STATUS=0
+for file in $@; do
+    if grep -Eq "\s+$" $file; then
+        echo -e "\e[31m$file\e[0m"
+        grep -E --color=always "\s+$" $file
+        STATUS=1
+    fi
+done
+exit $STATUS
+' sh {} + || (STATUS=1; echo_err "Files found with trailing whitespace!\n")
+
+.testing/runtests.sh --quiet || STATUS=1
+
+if [[ "$STATUS" = "0" ]]; then
+    echo -en "\e[32m${bold}"
+    echo -n All tests passed!
+    echo -e "${normal}\e[0m"
+fi
+
+exit $STATUS

@@ -29,9 +29,10 @@ done
 fi
 
 # verify all webhooks have associated secrets
+readarray DEFINED_WEBHOOKS < <(yq '.jobs.update-webhooks.steps[] | select(.name == "Execute webhooks").env' .github/workflows/webhooks.yml)
 for webhook in $GITHUB_WORKSPACE/*/; do
 webhook=$(basename "$webhook")
-if ! grep -q "$webhook" $GITHUB_WORKSPACE/.github/workflows/webhooks.yml; then
+if ! printf "%s\n" "${DEFINED_WEBHOOKS[@]}" | grep --quiet "^${webhook}_WEBHOOK"; then
     echo "::error ::$webhook missing secret in \`webhooks.yml\`."
     STATUS=1
 fi
