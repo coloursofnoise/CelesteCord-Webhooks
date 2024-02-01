@@ -122,6 +122,7 @@ for HOOK in "${!WEBHOOKS[@]}"; do
             else
                 echo "Updating message $MSG_ID for $HOOK"
                 send_message $WEBHOOK_URL/messages/$MSG_ID PATCH $HOOK $IDX >/dev/null
+                echo $response
             fi
         done
     elif [ $STATUS == 2 ]; then
