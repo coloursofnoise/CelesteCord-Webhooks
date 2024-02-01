@@ -65,14 +65,16 @@ webhook_status() {
 #   Result of curl request.
 send_message() {
     embed_query='--argjson embeds []'
+    content_query='--argjson content null'
     test -f $3/embeds/$4 && embed_query="--slurpfile embeds $3/embeds/$4"
+    test -f $3/messages/$4 && content_query="--rawfile content $3/messages/$4"
     curl \
         -X $2 \
         -H "Content-Type: application/json" \
         "$1?wait=true" \
         -d "$(
             jq -ncj \
-            --rawfile content $3/messages/$4 \
+            $content_query \
             $embed_query \
             '{content: $content, embeds: $embeds, allowed_mentions: {parse: []}}' | \
             perl -e '$json = <>; $json =~ s/<\{\{ (.+?) \}\}>/`cat $1 | jq -sR | head -c -3 | tail -c +2`/ge; print $json' | \
