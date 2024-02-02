@@ -1,96 +1,93 @@
-[
-  {
-    "title": "Welcome to the Mt. Celeste Climbing Association!",
-    "description": "As with everywhere on Discord, you must follow the rules outlined in the Discord **[Terms of Service](<https://dis.gd/terms>)** and **[Community Guidelines](<https://dis.gd/guidelines>)**, as well as the following server rules:\n​",
-    "color": 7521768,
-    "fields": [
-      {
-        "name": "🔹__Rule 1:__ Be respectful towards other members",
-        "value": ">>> Do not harass or discriminate against others, including using slurs or words in any way that puts down a specific group of people, even when not used to refer to those groups. Changing or censoring a banned word in an attempt to bypass this rule is prohibited."
-      },
-      {
-        "name": "🔹__Rule 2:__ Appropriate content only",
-        "value": ">>> No NSFW, disturbing, or malicious content, including media and discussion of such content. Keep in mind that this is a 13+ server, so your content should remain appropriate for all users. Malicious content includes media with the intent of crashing, content that could cause photosensitivity issues, or otherwise compromising software."
-      },
-      {
-        "name": "🔹__Rule 3:__ No sensitive topics",
-        "value": ">>> Don't cause or contribute to drama. This includes discussion about politics, religion, gossip about other people, and any other controversial topics, as they often cause unnecessary arguments."
-      },
-      {
-        "name": "🔹__Rule 4:__ No spam",
-        "value": ">>> No spam, such as posting chains of emotes, gifs, unnecessary spoiler tags, excessively long text and gibberish."
-      },
-      {
-        "name": "🔹__Rule 5:__ No advertising",
-        "value": ">>> No advertising, including self-promotion and Discord invites. If your advertisement is related to Celeste and the community, you may open a ticket in ⁠<#962025876407590912> for permission to post it. Links and references to community projects and community related events, that do not advertise yourself or your own brand, are generally permitted."
-      },
-      {
-        "name": "🔹__Rule 6:__ No excessive venting",
-        "value": ">>> If you are having thoughts about self harm, it is important to talk to someone trained to help you, so be sure to look into local resources for people who can help you help yourself. Here is a [US Resource (Link)](http://www.suicide.org/suicide-hotlines.html), and two [International Resources (Link 1)](http://www.suicide.org/international-suicide-hotlines.html), [(Link 2)](https://www.wearespur.com/org/mentalhealthhub)."
-      },
-      {
-        "name": "🔹__Rule 7:__ No warez, piracy, or malware",
-        "value": ">>> Discussion about emulation is allowed. However, pointing to where to download, redistributing copyrighted material without permission, or asking people to purchase media for you, in particular Celeste itself, is prohibited."
-      },
-      {
-        "name": "🔹__Rule 8:__ Do not be overly negative",
-        "value": ">>> Be respectful and understanding of others, and avoid making people uncomfortable or otherwise ruining their fun. We all get upset at times, but negativity should stay at a reasonable level, as it drains everyone else."
-      },
-      {
-        "name": "🔹__Rule 9:__ Do not demean people's achievements",
-        "value": ">>> If someone is posting a pb/accomplishment in gaming or life, either congratulate them or keep silent, unless constructive criticism or feedback is requested. No one is claiming that their achievements are unbeatable, anything could be faster or harder, so this doesn't need to be stated."
-      },
-      {
-        "name": "🔹__Rule 10:__ Do not pressure people for achievements",
-        "value": ">>> Community members should strive to make others feel comfortable with their achievements without pushing them to do more beyond that. Peer pressure, valuing others' personal achievements/feelings as less than yours, or one-upping others with mentions aren't allowed."
-      },
-      {
-        "name": "🔹__Rule 11:__ No impersonating",
-        "value": ">>> Do not impersonate Server-Staff, Developers, Community Projects or other people and concepts. Having any pingable role's name as your nickname is prohibited. Furthermore, user profiles, including but not limited to Username, Nickname, and Profile Picture are subject to moderation in accordance to the rules, in particular rules 1 and 2 (Rule 5 is exempt from that)."
-      },
-      {
-        "name": "🔹__Rule 12:__ No spoilers",
-        "value": ">>> Don't post significant spoilers (spoiling story, plot twists, etc.) for newly released content or media (games, movies, etc.) without utilising spoiler tags and tagging the content appropriately."
-      },
-      {
-        "name": "🔹__Rule 13:__ Do not ping Developers",
-        "value": ">>> The devs are busy people, don't ping them or waste their time. This rule is applicable in all channels."
-      },
-      {
-        "name": "🔹__Rule 14:__ Respect Server-Staff",
-        "value": ">>> You may disagree with the mods/admins, but do it politely and constructively. We're at over ~~9000~~ ~~16000~~ ~~25000~~ ~~36000~~ 49000 members and it's a lot of work for them that they aren't getting paid for."
-      },
-      {
-        "name": "🔹__Rule 15:__ English only",
-        "value": ">>> Please only use English for conversations, as extended discussion in other languages is difficult to moderate - isolated words or phrases in other languages are fine, but if you plan on having a conversation in one move to DMs instead."
-      },
-      {
-        "name": "🔹__Rule 16:__ Credit artists",
-        "value": ">>> Please credit artists if you post art that is not your own. Refrain from posting AI-generated art, which is strictly prohibited in <#407063066262372371> and <#642428572648341514>. This rule usually does not apply to memes and emotes outside those two channels."
-      }
-    ],
-    "footer": {
-      "text": "Media permissions will be granted via the media role. Specifics on how it's given out will not be stated publicly, due to the nature of what we are trying to prevent. To get the role, you will simply have to be active on the server."
+{
+  "title": "Welcome to the Mt. Celeste Climbing Association!",
+  "description": "As with everywhere on Discord, you must follow the rules outlined in the Discord **[Terms of Service](<https://dis.gd/terms>)** and **[Community Guidelines](<https://dis.gd/guidelines>)**, as well as the following server rules:\n",
+  "color": 7521768,
+  "fields": [
+    {
+      "name": "🔹__Rule 1:__ Be respectful towards other members",
+      "value": ">>> Do not harass or discriminate against others, including using slurs or words in any way that puts down a specific group of people, even when not used to refer to those groups. Changing or censoring a banned word in an attempt to bypass this rule is prohibited."
+    },
+    {
+      "name": "🔹__Rule 2:__ Appropriate content only",
+      "value": ">>> No NSFW, disturbing, or malicious content, including media and discussion of such content. Keep in mind that this is a 13+ server, so your content should remain appropriate for all users. Malicious content includes media with the intent of crashing, content that could cause photosensitivity issues, or otherwise compromising software."
+    },
+    {
+      "name": "🔹__Rule 3:__ No sensitive topics",
+      "value": ">>> Don't cause or contribute to drama. This includes discussion about politics, religion, gossip about other people, and any other controversial topics, as they often cause unnecessary arguments."
+    },
+    {
+      "name": "🔹__Rule 4:__ No spam",
+      "value": ">>> No spam, such as posting chains of emotes, gifs, unnecessary spoiler tags, excessively long text and gibberish."
+    },
+    {
+      "name": "🔹__Rule 5:__ No advertising",
+      "value": ">>> No advertising, including self-promotion and Discord invites. If your advertisement is related to Celeste and the community, you may open a ticket in <#962025876407590912> for permission to post it. Links and references to community projects and community related events, that do not advertise yourself or your own brand, are generally permitted."
+    },
+    {
+      "name": "🔹__Rule 6:__ No excessive venting",
+      "value": ">>> If you are having thoughts about self harm, it is important to talk to someone trained to help you, so be sure to look into local resources for people who can help you help yourself. Here is a [US Resource (Link)](http://www.suicide.org/suicide-hotlines.html), and two [International Resources (Link 1)](http://www.suicide.org/international-suicide-hotlines.html), [(Link 2)](https://www.wearespur.com/org/mentalhealthhub)."
+    },
+    {
+      "name": "🔹__Rule 7:__ No warez, piracy, or malware",
+      "value": ">>> Discussion about emulation is allowed. However, pointing to where to download, redistributing copyrighted material without permission, or asking people to purchase media for you, in particular Celeste itself, is prohibited."
+    },
+    {
+      "name": "🔹__Rule 8:__ Do not be overly negative",
+      "value": ">>> Be respectful and understanding of others, and avoid making people uncomfortable or otherwise ruining their fun. We all get upset at times, but negativity should stay at a reasonable level, as it drains everyone else."
+    },
+    {
+      "name": "🔹__Rule 9:__ Do not demean people's achievements",
+      "value": ">>> If someone is posting a pb/accomplishment in gaming or life, either congratulate them or keep silent, unless constructive criticism or feedback is requested. No one is claiming that their achievements are unbeatable, anything could be faster or harder, so this doesn't need to be stated."
+    },
+    {
+      "name": "🔹__Rule 10:__ Do not pressure people for achievements",
+      "value": ">>> Community members should strive to make others feel comfortable with their achievements without pushing them to do more beyond that. Peer pressure, valuing others' personal achievements/feelings as less than yours, or one-upping others with mentions aren't allowed."
+    },
+    {
+      "name": "🔹__Rule 11:__ No impersonating",
+      "value": ">>> Do not impersonate Server-Staff, Developers, Community Projects or other people and concepts. Having any pingable role's name as your nickname is prohibited. Furthermore, user profiles, including but not limited to Username, Nickname, and Profile Picture are subject to moderation in accordance to the rules, in particular rules 1 and 2 (Rule 5 is exempt from that)."
+    },
+    {
+      "name": "🔹__Rule 12:__ No spoilers",
+      "value": ">>> Don't post significant spoilers (spoiling story, plot twists, etc.) for newly released content or media (games, movies, etc.) without utilising spoiler tags and tagging the content appropriately."
+    },
+    {
+      "name": "🔹__Rule 13:__ Do not ping Developers",
+      "value": ">>> The devs are busy people, don't ping them or waste their time. This rule is applicable in all channels."
+    },
+    {
+      "name": "🔹__Rule 14:__ Respect Server-Staff",
+      "value": ">>> You may disagree with the mods/admins, but do it politely and constructively. We're at over ~~9000~~ ~~16000~~ ~~25000~~ ~~36000~~ 49000 members and it's a lot of work for them that they aren't getting paid for."
+    },
+    {
+      "name": "🔹__Rule 15:__ English only",
+      "value": ">>> Please only use English for conversations, as extended discussion in other languages is difficult to moderate - isolated words or phrases in other languages are fine, but if you plan on having a conversation in one move to DMs instead."
+    },
+    {
+      "name": "🔹__Rule 16:__ Credit artists",
+      "value": ">>> Please credit artists if you post art that is not your own. Refrain from posting AI-generated art, which is strictly prohibited in <#407063066262372371> and <#642428572648341514>. This rule usually does not apply to memes and emotes outside those two channels."
     }
-  },
-
-  {
-    "title": "Forms",
-    "description": "If you feel the need to report anyone in the server (including members of the staff team), address an issue privately, or appeal a ban, here are your available options:",
-    "color": 5348840,
-    "fields": [
-      {
-        "name": "Opening a ticket/Contacting Staff",
-        "value": "Rather than sending a direct message, you also have the preferred option of opening a private ticket with the Server-Staff at ⁠<#962025876407590912>."
-      },
-      {
-        "name": "Filing an anonymous report",
-        "value": "Use the **[Celestecord Report Service](<https://dyno.gg/form/68e1f27>)** to fill out and send an anonymous report to us."
-      },
-      {
-        "name": "Appealing a Ban",
-        "value": "Ban appeals are attached to the ban message, and can be submitted through the **[Celestecord Ban Appeal Form](<https://dyno.gg/form/2c5c0737>)** if needed. Bookmarking or otherwise saving it elsewhere is recommended."
-      }
-    ]
+  ],
+  "footer": {
+    "text": "Media permissions will be granted via the media role. Specifics on how it's given out will not be stated publicly, due to the nature of what we are trying to prevent. To get the role, you will simply have to be active on the server."
   }
-]
+}
+{
+  "title": "Forms",
+  "description": "If you feel the need to report anyone in the server (including members of the staff team), address an issue privately, or appeal a ban, here are your available options:",
+  "color": 5348840,
+  "fields": [
+    {
+      "name": "Opening a ticket/Contacting Staff",
+      "value": "Rather than sending a direct message, you also have the preferred option of opening a private ticket with the Server-Staff at ⁠<#962025876407590912>."
+    },
+    {
+      "name": "Filing an anonymous report",
+      "value": "Use the **[Celestecord Report Service](<https://dyno.gg/form/68e1f27>)** to fill out and send an anonymous report to us."
+    },
+    {
+      "name": "Appealing a Ban",
+      "value": "Ban appeals are attached to the ban message, and can be submitted through the **[Celestecord Ban Appeal Form](<https://dyno.gg/form/2c5c0737>)** if needed. Bookmarking or otherwise saving it elsewhere is recommended."
+    }
+  ]
+}
