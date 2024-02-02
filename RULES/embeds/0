@@ -1,7 +1,7 @@
 [
   {
     "title": "Welcome to the Mt. Celeste Climbing Association!",
-    "description": "As with everywhere on Discord, you must follow the rules outlined in the Discord **[Terms of Service](<https://dis.gd/terms>)** and **[Community Guidelines](<https://dis.gd/guidelines>)**, as well as the following server rules:\n​",
+    "description": "As with everywhere on Discord, you must follow the rules outlined in the Discord **[Terms of Service](<https://dis.gd/terms>)** and **[Community Guidelines](<https://dis.gd/guidelines>)**, as well as the following server rules:\n",
     "color": 7521768,
     "fields": [
       {
@@ -22,7 +22,7 @@
       },
       {
         "name": "🔹__Rule 5:__ No advertising",
-        "value": ">>> No advertising, including self-promotion and Discord invites. If your advertisement is related to Celeste and the community, you may open a ticket in ⁠<#962025876407590912> for permission to post it. Links and references to community projects and community related events, that do not advertise yourself or your own brand, are generally permitted."
+        "value": ">>> No advertising, including self-promotion and Discord invites. If your advertisement is related to Celeste and the community, you may open a ticket in <#962025876407590912> for permission to post it. Links and references to community projects and community related events, that do not advertise yourself or your own brand, are generally permitted."
       },
       {
         "name": "🔹__Rule 6:__ No excessive venting",
