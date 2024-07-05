@@ -1,0 +1,47 @@
+{
+  "color": 7521768,
+  "fields": [
+    {
+      "name": "🔹__Rule 12:__ No spoilers",
+      "value": ">>> Don't post significant spoilers (spoiling story, plot twists, etc.) for newly released content or media (games, movies, etc.) without utilising spoiler tags and tagging the content appropriately."
+    },
+    {
+      "name": "🔹__Rule 13:__ Do not ping Developers",
+      "value": ">>> The devs are busy people, don't ping them or waste their time. This rule is applicable in all channels."
+    },
+    {
+      "name": "🔹__Rule 14:__ Respect Server-Staff",
+      "value": ">>> You may disagree with the mods/admins, but do it politely and constructively. We're at over ~~9000~~ ~~16000~~ ~~25000~~ ~~36000~~ ~~49000~~ 64000 members and it's a lot of work for them that they aren't getting paid for."
+    },
+    {
+      "name": "🔹__Rule 15:__ English only",
+      "value": ">>> Please only use English for conversations, as extended discussion in other languages is difficult to moderate - isolated words or phrases in other languages are fine, but if you plan on having a conversation in one, move to DMs or use one of the following links to foreign-language Celeste Discords\n🇫🇷 <https://discord.gg/XVxrn84eum>\n🇧🇷🇵🇹 <https://discord.gg/QH3A9AfXk4>"
+    },
+    {
+      "name": "🔹__Rule 16:__ Credit artists",
+      "value": ">>> Please credit artists if you post art that is not your own. Refrain from posting AI-generated art, which is strictly prohibited in <#407063066262372371> and <#642428572648341514>. This rule usually does not apply to memes and emotes outside those two channels."
+    }
+  ],
+  "footer": {
+    "text": "Media permissions will be granted via the media role. Specifics on how it's given out will not be stated publicly, due to the nature of what we are trying to prevent. To get the role, you will simply have to be active on the server."
+  }
+}
+{
+  "title": "Forms",
+  "description": "If you feel the need to report anyone in the server (including members of the staff team), address an issue privately, or appeal a ban, here are your available options:",
+  "color": 5348840,
+  "fields": [
+    {
+      "name": "Opening a ticket/Contacting Staff",
+      "value": "Rather than sending a direct message, you also have the preferred option of opening a private ticket with the Server-Staff at ⁠<#962025876407590912>."
+    },
+    {
+      "name": "Filing an anonymous report",
+      "value": "Use the **[Celestecord Report Service](<https://dyno.gg/form/68e1f27>)** to fill out and send an anonymous report to us."
+    },
+    {
+      "name": "Appealing a Ban",
+      "value": "Ban appeals are attached to the ban message, and can be submitted through the **[Celestecord Ban Appeal Form](<https://dyno.gg/form/2c5c0737>)** if needed. Bookmarking or otherwise saving it elsewhere is recommended."
+    }
+  ]
+}
