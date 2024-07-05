@@ -42,7 +42,12 @@
     {
       "name": "🔹__Rule 10:__ Do not pressure people for achievements",
       "value": ">>> Community members should strive to make others feel comfortable with their achievements without pushing them to do more beyond that. Peer pressure, valuing others' personal achievements/feelings as less than yours, or one-upping others with mentions aren't allowed."
-    },
+    }
+  ]
+}
+{
+  "color": 7521768,
+  "fields": [
     {
       "name": "🔹__Rule 11:__ No impersonating",
       "value": ">>> Do not impersonate Server-Staff, Developers, Community Projects or other people and concepts. Having any pingable role's name as your nickname is prohibited. Furthermore, user profiles, including but not limited to Username, Nickname, and Profile Picture are subject to moderation in accordance to the rules, in particular rules 1 and 2 (Rule 5 is exempt from that)."
